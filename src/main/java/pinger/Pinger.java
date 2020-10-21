@@ -16,7 +16,7 @@ public class Pinger {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             try (InputStream stream = conn.getInputStream()) {
                 String content = new String(stream.readAllBytes());
-                if (content.isEmpty() && content.isBlank()) {
+                if (content.isEmpty()) {
                     content = "No content returned";
                 }
                 addField("Content Type", conn.getContentType());
