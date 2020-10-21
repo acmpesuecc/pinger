@@ -30,6 +30,6 @@ public class Pinger {
     }
 
     private static void addField(String name, Object value) {
-        System.out.println(String.format(name + ": %s", value));
+        System.out.printf(name + ": %s", value);
     }
 }
