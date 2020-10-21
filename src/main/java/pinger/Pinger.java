@@ -15,7 +15,7 @@ public class Pinger {
             URL url = new URL(urlI);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             try (InputStream stream = conn.getInputStream()) {
-                String content = new String(stream.readAllBytes());
+                String content = readAllLines(stream);
                 if (content.isEmpty()) {
                     content = "No content returned";
                 }
@@ -26,6 +26,20 @@ public class Pinger {
                 addField("Header Fields", conn.getHeaderFields());
                 addField("Content", content);
             }
+        }
+    }
+
+    private static String readAllLines(InputStream stream) throws IOException {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
+            StringBuilder builder = new StringBuilder();
+            while(true) {
+                String line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
+                builder.append(line);
+            }
+            return builder.toString();
         }
     }
 

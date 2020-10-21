@@ -3,6 +3,16 @@ plugins {
     id 'application'
 }
 
+group = 'pinger'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 jar {
     manifest.attributes(
             "Main-Class": "pinger.Pinger"
