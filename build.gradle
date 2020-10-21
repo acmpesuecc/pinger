@@ -3,6 +3,12 @@ plugins {
     id 'application'
 }
 
+jar {
+    manifest.attributes(
+            "Main-Class": "pinger.Pinger"
+    )
+}
+
 application {
     mainClassName = 'pinger.Pinger'
 }
