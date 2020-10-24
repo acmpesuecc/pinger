@@ -32,7 +32,7 @@ public class Pinger {
                 System.out.println(e);
             }
             System.out.println("Enter y to continue and n to exit ");
-                    ch = reader.read();
+                    ch = reader.readLine();
         }while(ch == 'y');
     }
 
