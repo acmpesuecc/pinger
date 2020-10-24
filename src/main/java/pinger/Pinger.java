@@ -45,6 +45,7 @@ public class Pinger {
                     break;
                 }
                 builder.append(line);
+                builder.append("\n");
             }
             return builder.toString();
         }
