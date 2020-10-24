@@ -30,7 +30,7 @@ public class Pinger {
                     addField("Header Fields", conn.getHeaderFields());
                     addField("Content", content);
                     System.out.println("Enter y to continue and n to exit ");
-                    ch = (char) reader1.read();
+                    ch = reader1.read().charAt(0);
                 }
             } catch (Exception e) {
                 System.out.println(e);
