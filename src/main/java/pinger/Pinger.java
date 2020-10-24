@@ -9,9 +9,9 @@ import java.net.URL;
 
 public class Pinger {
     public static void main(String[] args)  {
-        char ch='y';
-        do {
 
+        do {
+            char ch='y';
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
                 BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
                 System.out.println("Enter the URL to be pinged");
