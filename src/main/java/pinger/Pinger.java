@@ -27,7 +27,8 @@ public class Pinger {
                 addField("Content", content);
             }
         } catch(Exception e) {
-            System.out.println(e);
+            System.out.println("error occured);
+                               e.printstacktrace();
         }
     }
 
