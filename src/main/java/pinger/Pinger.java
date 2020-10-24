@@ -11,8 +11,9 @@ public class Pinger {
     public static void main(String[] args)  {
         char ch='y';
         do {
-            BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+                BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
                 System.out.println("Enter the URL to be pinged");
                 String urlI = "http://" + reader.readLine();
                 URL url = new URL(urlI);
