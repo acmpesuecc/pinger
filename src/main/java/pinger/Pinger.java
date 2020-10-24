@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Pinger {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.println("Enter the URL to be pinged");
             String urlI = "http://" + reader.readLine();
@@ -26,6 +26,8 @@ public class Pinger {
                 addField("Header Fields", conn.getHeaderFields());
                 addField("Content", content);
             }
+        } catch(Exception e) {
+            System.out.println(e);
         }
     }
 
