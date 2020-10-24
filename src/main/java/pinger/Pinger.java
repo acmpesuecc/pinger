@@ -9,26 +9,31 @@ import java.net.URL;
 
 public class Pinger {
     public static void main(String[] args)  {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            System.out.println("Enter the URL to be pinged");
-            String urlI = "http://" + reader.readLine();
-            URL url = new URL(urlI);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            try (InputStream stream = conn.getInputStream()) {
-                String content = readAllLines(stream);
-                if (content.isEmpty()) {
-                    content = "No content returned";
+        char ch=y;
+        do {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+                System.out.println("Enter the URL to be pinged");
+                String urlI = "http://" + reader.readLine();
+                URL url = new URL(urlI);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                try (InputStream stream = conn.getInputStream()) {
+                    String content = readAllLines(stream);
+                    if (content.isEmpty()) {
+                        content = "No content returned";
+                    }
+                    addField("Content Type", conn.getContentType());
+                    addField("Request Method", conn.getRequestMethod());
+                    addField("Connection Timeout", conn.getConnectTimeout());
+                    addField("Response code", conn.getResponseCode());
+                    addField("Header Fields", conn.getHeaderFields());
+                    addField("Content", content);
                 }
-                addField("Content Type", conn.getContentType());
-                addField("Request Method", conn.getRequestMethod());
-                addField("Connection Timeout", conn.getConnectTimeout());
-                addField("Response code", conn.getResponseCode());
-                addField("Header Fields", conn.getHeaderFields());
-                addField("Content", content);
+            } catch (Exception e) {
+                System.out.println(e);
             }
-        } catch(Exception e) {
-            System.out.println(e);
-        }
+            System.out.println("Enter y to continue and n to exit ")
+                    ch = reader.read();
+        }while(ch == 'y')
     }
 
     private static String readAllLines(InputStream stream) throws IOException {
