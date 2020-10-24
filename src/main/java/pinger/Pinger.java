@@ -9,11 +9,11 @@ import java.net.URL;
 
 public class Pinger {
     public static void main(String[] args)  {
-
+        char ch='y';
         do {
-            char ch='y';
+            BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-                BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
+
                 System.out.println("Enter the URL to be pinged");
                 String urlI = "http://" + reader.readLine();
                 URL url = new URL(urlI);
@@ -29,12 +29,12 @@ public class Pinger {
                     addField("Response code", conn.getResponseCode());
                     addField("Header Fields", conn.getHeaderFields());
                     addField("Content", content);
+                    System.out.println("Enter y to continue and n to exit ");
+                    ch = (char) reader1.read();
                 }
             } catch (Exception e) {
                 System.out.println(e);
-            }
-            System.out.println("Enter y to continue and n to exit ");
-            ch = (char)reader1.read();
+            } 
         }while(ch == 'y');
     }
 
