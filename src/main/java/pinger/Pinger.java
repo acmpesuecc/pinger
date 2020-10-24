@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class Pinger {
     public static void main(String[] args)  {
-        char ch=y;
+        char ch='y';
         do {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
                 System.out.println("Enter the URL to be pinged");
@@ -32,7 +32,7 @@ public class Pinger {
                 System.out.println(e);
             }
             System.out.println("Enter y to continue and n to exit ");
-                    ch = reader.readLine();
+            ch = reader.read();
         }while(ch == 'y');
     }
 
