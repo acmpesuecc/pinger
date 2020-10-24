@@ -31,9 +31,9 @@ public class Pinger {
             } catch (Exception e) {
                 System.out.println(e);
             }
-            System.out.println("Enter y to continue and n to exit ")
+            System.out.println("Enter y to continue and n to exit ");
                     ch = reader.read();
-        }while(ch == 'y')
+        }while(ch == 'y');
     }
 
     private static String readAllLines(InputStream stream) throws IOException {
