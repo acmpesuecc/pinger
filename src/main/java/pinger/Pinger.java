@@ -18,9 +18,10 @@ public class Pinger {
                 do {
                     System.out.println("enter 1 for http");
                     int n = Integer.parseInt(reader.readLine());
-                    if(n ==1) {
+                    String prefix = n==1? "http://":"https//";
+
                         System.out.println("Enter the URL to be pinged");
-                        String urlI = "http://" + reader.readLine();
+                        String urlI = prefix + reader.readLine();
                         URL url = new URL(urlI);
                         URLConnection conn = url.openConnection();
                         if (conn instanceof HttpURLConnection) {
@@ -40,15 +41,6 @@ public class Pinger {
                                 ch = reader.readLine().charAt(0);
                             }
                         } else {
-                            throw new Exception("Not a http url");
-                        }
-                    }
-                    else {
-                        System.out.println("Enter the URL to be pinged");
-                        String urlI = "https://" + reader.readLine();
-                        URL url = new URL(urlI);
-                        URLConnection conn = url.openConnection();
-                        if (conn instanceof HttpsURLConnection) {
                             HttpsURLConnection conn1 = (HttpsURLConnection) conn;
                             try (InputStream stream = conn1.getInputStream()) {
                                 String content = readAllLines(stream);
@@ -64,10 +56,7 @@ public class Pinger {
                                 System.out.println("Enter y to continue and n to exit ");
                                 ch = reader.readLine().charAt(0);
                             }
-                        } else {
-                            throw new Exception("Not a http url");
                         }
-                    }
                 }while(ch == 'y');
             } catch (Exception e) {
                 System.out.println("error :"+e.getMessage());
