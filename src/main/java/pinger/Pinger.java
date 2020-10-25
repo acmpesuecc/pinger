@@ -17,8 +17,8 @@ public class Pinger {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
                 do {
                     System.out.println("enter 1 for http");
-                    int n = Integer.parseInt(reader.readLine());
-                    String prefix = n==1? "http://":"https//";
+                    char n = reader.readLine().charAt(0);
+                    String prefix = n=='1'? "http://":"https//";
 
                         System.out.println("Enter the URL to be pinged");
                         String urlI = prefix + reader.readLine();
