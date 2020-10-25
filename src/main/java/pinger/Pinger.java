@@ -11,39 +11,39 @@ import java.net.URL;
 public class Pinger {
     public static void main(String[] args)  {
         char ch='y';
-        do {
+
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-
-                System.out.println("Enter the URL to be pinged");
-                String urlI = "http://" + reader.readLine();
-                URL url = new URL(urlI);
-                URLConnection conn = url.openConnection();
-                if(conn instanceof HttpURLConnection) {
-                    HttpURLConnection conn1 = (HttpURLConnection) url.openConnection();
-                    try (InputStream stream = conn1.getInputStream()) {
-                        String content = readAllLines(stream);
-                        if (content.isEmpty()) {
-                            content = "No content returned";
+                do {
+                    System.out.println("Enter the URL to be pinged");
+                    String urlI = "http://" + reader.readLine();
+                    URL url = new URL(urlI);
+                    URLConnection conn = url.openConnection();
+                    if (conn instanceof HttpURLConnection) {
+                        HttpURLConnection conn1 = (HttpURLConnection) url.openConnection();
+                        try (InputStream stream = conn1.getInputStream()) {
+                            String content = readAllLines(stream);
+                            if (content.isEmpty()) {
+                                content = "No content returned";
+                            }
+                            addField("Content Type", conn1.getContentType());
+                            addField("Request Method", conn1.getRequestMethod());
+                            addField("Connection Timeout", conn1.getConnectTimeout());
+                            addField("Response code", conn1.getResponseCode());
+                            addField("Header Fields", conn1.getHeaderFields());
+                            addField("Content", content);
+                            System.out.println("Enter y to continue and n to exit ");
+                            ch = reader.readLine().charAt(0);
                         }
-                        addField("Content Type", conn1.getContentType());
-                        addField("Request Method", conn1.getRequestMethod());
-                        addField("Connection Timeout", conn1.getConnectTimeout());
-                        addField("Response code", conn1.getResponseCode());
-                        addField("Header Fields", conn1.getHeaderFields());
-                        addField("Content", content);
-                        System.out.println("Enter y to continue and n to exit ");
-                        ch = reader.readLine().charAt(0);
+                    } else {
+                        throw new Exception("Not a http url");
                     }
-                }
-                else {
-                    throw new Exception("Not a http url");
-                }
+                }while(ch == 'y');
             } catch (Exception e) {
                 System.out.println("error :"+e.getMessage());
                 e.printStackTrace();
             } 
-        }while(ch == 'y');
+
     }
     /**
      * The readAllLines() is used to read input from a stream until there is no more data left
