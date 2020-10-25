@@ -17,7 +17,7 @@ public class Pinger {
                 System.out.println("Enter the URL to be pinged");
                 String urlI = "http://" + reader.readLine();
                 URL url = new URL(urlI);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                URLConnection conn = url.openConnection();
                 if(conn instanceof HttpURLConnection) {
                     try (InputStream stream = conn.getInputStream()) {
                         String content = readAllLines(stream);
