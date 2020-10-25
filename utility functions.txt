@@ -1,9 +1,0 @@
-The two utility functions used in the program are:
-readalllines()
-addfield()
-
-The readalllines() is used to take input repetatively 
-until the user enter a null character
-
-The addfield() is used to assign the property values which
-were present in the user input

@@ -45,7 +45,9 @@ public class Pinger {
             } 
         }while(ch == 'y');
     }
-
+    /*The readalllines() is used to take input repetatively
+    until the user enter a null character
+     */
     private static String readAllLines(InputStream stream) throws IOException {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
             StringBuilder builder = new StringBuilder();
@@ -60,7 +62,10 @@ public class Pinger {
             return builder.toString();
         }
     }
-
+    /*
+    The addfield() is used to assign the property values which
+    were present in the user input
+     */
     private static void addField(String name, Object value) {
         System.out.printf(name + ":"+ value);
     }
