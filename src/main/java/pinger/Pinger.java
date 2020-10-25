@@ -20,7 +20,7 @@ public class Pinger {
                     URL url = new URL(urlI);
                     URLConnection conn = url.openConnection();
                     if (conn instanceof HttpURLConnection) {
-                        HttpURLConnection conn1 = (HttpURLConnection) url.openConnection();
+                        HttpURLConnection conn1 = (HttpURLConnection) conn;
                         try (InputStream stream = conn1.getInputStream()) {
                             String content = readAllLines(stream);
                             if (content.isEmpty()) {
