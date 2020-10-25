@@ -45,7 +45,9 @@ public class Pinger {
             } 
         }while(ch == 'y');
     }
-
+    /**
+     * The readAllLines() is used to read input from a stream until there is no more data left
+     */
     private static String readAllLines(InputStream stream) throws IOException {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
             StringBuilder builder = new StringBuilder();
@@ -60,7 +62,10 @@ public class Pinger {
             return builder.toString();
         }
     }
-
+    /**
+    The addField() is used to assign the property values which
+    were present in the returned input
+     */
     private static void addField(String name, Object value) {
         System.out.printf(name + ":"+ value);
     }
