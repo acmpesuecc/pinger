@@ -40,6 +40,7 @@ public class Pinger {
                     throw new Exception("Not a http url");
                 }
             } catch (Exception e) {
+                System.out.println("error :"+e.getMessage());
                 e.printStackTrace();
             } 
         }while(ch == 'y');
