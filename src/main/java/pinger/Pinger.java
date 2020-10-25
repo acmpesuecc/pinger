@@ -45,7 +45,7 @@ public class Pinger {
             } 
         }while(ch == 'y');
     }
-    /*The readalllines() is used to take input repetatively
+    /**The readalllines() is used to take input repetatively
     until the user enter a null character
      */
     private static String readAllLines(InputStream stream) throws IOException {
@@ -62,7 +62,7 @@ public class Pinger {
             return builder.toString();
         }
     }
-    /*
+    /**
     The addfield() is used to assign the property values which
     were present in the returned input
      */
