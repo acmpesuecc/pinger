@@ -12,7 +12,7 @@ public class Pinger {
     public static void main(String[] args)  {
         char ch='y';
         do {
-            BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
 
                 System.out.println("Enter the URL to be pinged");
@@ -33,7 +33,7 @@ public class Pinger {
                         addField("Header Fields", conn1.getHeaderFields());
                         addField("Content", content);
                         System.out.println("Enter y to continue and n to exit ");
-                        ch = reader1.readLine().charAt(0);
+                        ch = reader.readLine().charAt(0);
                     }
                 }
                 else {
