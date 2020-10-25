@@ -18,19 +18,24 @@ public class Pinger {
                 String urlI = "http://" + reader.readLine();
                 URL url = new URL(urlI);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                try (InputStream stream = conn.getInputStream()) {
-                    String content = readAllLines(stream);
-                    if (content.isEmpty()) {
-                        content = "No content returned";
+                if(conn instanceof HttpURLConnection) {
+                    try (InputStream stream = conn.getInputStream()) {
+                        String content = readAllLines(stream);
+                        if (content.isEmpty()) {
+                            content = "No content returned";
+                        }
+                        addField("Content Type", conn.getContentType());
+                        addField("Request Method", conn.getRequestMethod());
+                        addField("Connection Timeout", conn.getConnectTimeout());
+                        addField("Response code", conn.getResponseCode());
+                        addField("Header Fields", conn.getHeaderFields());
+                        addField("Content", content);
+                        System.out.println("Enter y to continue and n to exit ");
+                        ch = reader1.readLine().charAt(0);
                     }
-                    addField("Content Type", conn.getContentType());
-                    addField("Request Method", conn.getRequestMethod());
-                    addField("Connection Timeout", conn.getConnectTimeout());
-                    addField("Response code", conn.getResponseCode());
-                    addField("Header Fields", conn.getHeaderFields());
-                    addField("Content", content);
-                    System.out.println("Enter y to continue and n to exit ");
-                    ch = reader1.readLine().charAt(0);
+                }
+                else {
+                    throw new Exception("Not a http url");
                 }
             } catch (Exception e) {
                 System.out.println(e);
