@@ -64,7 +64,7 @@ public class Pinger {
     }
     /*
     The addfield() is used to assign the property values which
-    were present in the user input
+    were present in the returned input
      */
     private static void addField(String name, Object value) {
         System.out.printf(name + ":"+ value);
