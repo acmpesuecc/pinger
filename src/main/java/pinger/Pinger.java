@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URLConnection;
 import java.net.URL;
 
 public class Pinger {
@@ -17,20 +18,26 @@ public class Pinger {
                 System.out.println("Enter the URL to be pinged");
                 String urlI = "http://" + reader.readLine();
                 URL url = new URL(urlI);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                try (InputStream stream = conn.getInputStream()) {
-                    String content = readAllLines(stream);
-                    if (content.isEmpty()) {
-                        content = "No content returned";
+                URLConnection conn = url.openConnection();
+                if(conn instanceof HttpURLConnection) {
+                    HttpURLConnection conn1 = (HttpURLConnection) url.openConnection();
+                    try (InputStream stream = conn1.getInputStream()) {
+                        String content = readAllLines(stream);
+                        if (content.isEmpty()) {
+                            content = "No content returned";
+                        }
+                        addField("Content Type", conn1.getContentType());
+                        addField("Request Method", conn1.getRequestMethod());
+                        addField("Connection Timeout", conn1.getConnectTimeout());
+                        addField("Response code", conn1.getResponseCode());
+                        addField("Header Fields", conn1.getHeaderFields());
+                        addField("Content", content);
+                        System.out.println("Enter y to continue and n to exit ");
+                        ch = reader1.readLine().charAt(0);
                     }
-                    addField("Content Type", conn.getContentType());
-                    addField("Request Method", conn.getRequestMethod());
-                    addField("Connection Timeout", conn.getConnectTimeout());
-                    addField("Response code", conn.getResponseCode());
-                    addField("Header Fields", conn.getHeaderFields());
-                    addField("Content", content);
-                    System.out.println("Enter y to continue and n to exit ");
-                    ch = reader1.readLine().charAt(0);
+                }
+                else {
+                    throw new Exception("Not a http url");
                 }
             } catch (Exception e) {
                 System.out.println(e);
