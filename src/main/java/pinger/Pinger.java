@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URLConnection;
+import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 
 public class Pinger {
@@ -15,29 +16,47 @@ public class Pinger {
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
                 do {
-                    System.out.println("Enter the URL to be pinged");
-                    String urlI = "http://" + reader.readLine();
-                    URL url = new URL(urlI);
-                    URLConnection conn = url.openConnection();
-                    if (conn instanceof HttpURLConnection) {
-                        HttpURLConnection conn1 = (HttpURLConnection) conn;
-                        try (InputStream stream = conn1.getInputStream()) {
-                            String content = readAllLines(stream);
-                            if (content.isEmpty()) {
-                                content = "No content returned";
+                    System.out.println("enter 1 for http");
+                    char n = reader.readLine().charAt(0);
+                    String prefix = n=='1'? "http://":"https//";
+
+                        System.out.println("Enter the URL to be pinged");
+                        String urlI = prefix + reader.readLine();
+                        URL url = new URL(urlI);
+                        URLConnection conn = url.openConnection();
+                        if (conn instanceof HttpURLConnection) {
+                            HttpURLConnection conn1 = (HttpURLConnection) conn;
+                            try (InputStream stream = conn1.getInputStream()) {
+                                String content = readAllLines(stream);
+                                if (content.isEmpty()) {
+                                    content = "No content returned";
+                                }
+                                addField("Content Type", conn1.getContentType());
+                                addField("Request Method", conn1.getRequestMethod());
+                                addField("Connection Timeout", conn1.getConnectTimeout());
+                                addField("Response code", conn1.getResponseCode());
+                                addField("Header Fields", conn1.getHeaderFields());
+                                addField("Content", content);
+                                System.out.println("Enter y to continue and n to exit ");
+                                ch = reader.readLine().charAt(0);
                             }
-                            addField("Content Type", conn1.getContentType());
-                            addField("Request Method", conn1.getRequestMethod());
-                            addField("Connection Timeout", conn1.getConnectTimeout());
-                            addField("Response code", conn1.getResponseCode());
-                            addField("Header Fields", conn1.getHeaderFields());
-                            addField("Content", content);
-                            System.out.println("Enter y to continue and n to exit ");
-                            ch = reader.readLine().charAt(0);
+                        } else {
+                            HttpsURLConnection conn1 = (HttpsURLConnection) conn;
+                            try (InputStream stream = conn1.getInputStream()) {
+                                String content = readAllLines(stream);
+                                if (content.isEmpty()) {
+                                    content = "No content returned";
+                                }
+                                addField("Content Type", conn1.getContentType());
+                                addField("Request Method", conn1.getRequestMethod());
+                                addField("Connection Timeout", conn1.getConnectTimeout());
+                                addField("Response code", conn1.getResponseCode());
+                                addField("Header Fields", conn1.getHeaderFields());
+                                addField("Content", content);
+                                System.out.println("Enter y to continue and n to exit ");
+                                ch = reader.readLine().charAt(0);
+                            }
                         }
-                    } else {
-                        throw new Exception("Not a http url");
-                    }
                 }while(ch == 'y');
             } catch (Exception e) {
                 System.out.println("error :"+e.getMessage());
